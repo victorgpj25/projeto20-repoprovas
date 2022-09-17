@@ -1,3 +1,4 @@
+import { allowedNodeEnvironmentFlags } from 'process'
 import { prisma } from '../config/database'
 
 import * as testTypes from '../types/testTypes'
@@ -17,33 +18,65 @@ export async function findByDiscipline() {
                     name: true,
                     teachersDisciplines: {
                         select: {
-                            tests: { distinct: ['categoryId'],
+                            tests: {
                                 select: {
                                     category: {
                                         select: {
-                                            name: true,
-                                            tests: {
+                                            name: true
+                                        }
+                                    },
+                                    name: true,
+                                    pdfUrl: true,
+                                    teacherDiscipline: {
+                                        select: {
+                                            teacher: {
                                                 select: {
-                                                    id: true,
-                                                    name: true,
-                                                    pdfUrl: true,
-                                                    teacherDiscipline: {
-                                                        select: {
-                                                            teacher: {
-                                                                select: {
-                                                                    name: true
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-
+                                                    name: true
                                                 }
                                             }
                                         }
                                     }
+                                    
 
                                 }
                             }
+                        }
+                    }
+                }
+
+            }
+        }
+
+    })
+    return tests
+}
+
+export async function findByTeacher() {
+    const tests = await prisma.teachers.findMany({
+        select: {
+            name: true,
+            teachersDisciplines: {
+                select: {
+                    tests: {
+                        select: {
+                            category: {
+                                select: {
+                                    name: true
+                                }
+                            },
+                            name: true,
+                            pdfUrl: true,
+                            teacherDiscipline: {
+                                select: {
+                                    discipline: {
+                                        select: {
+                                            name: true
+                                        }
+                                    }
+                                }
+                            }
+                            
+
                         }
                     }
                 }
@@ -51,4 +84,4 @@ export async function findByDiscipline() {
         }
     })
     return tests
-}
+} 
