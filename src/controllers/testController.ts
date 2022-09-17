@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 
 import * as testService from '../services/testService'
+import * as testRepository from '../repositories/testRepository'
 
 export async function postTest(req: Request, res: Response) {
     const { name, pdfUrl, category, discipline, teacher }: {name: string, pdfUrl: string, category: string, discipline: string, teacher: string} = req.body
@@ -12,8 +13,7 @@ export async function postTest(req: Request, res: Response) {
 
 
 export async function getTestsByDiscipline(req: Request, res: Response) {
-    const disciplineId = Number(req.params.id)
-    const tests = await testService.getTestsByDisciplineId(disciplineId)
+    const tests = await testRepository.findByDiscipline()
 
     res.status(200).send(tests)
 }
