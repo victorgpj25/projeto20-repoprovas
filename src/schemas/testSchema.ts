@@ -1,7 +1,7 @@
 import joi from 'joi'
 
 const postTestSchema = joi.object({
-    name: joi.string().email().required()
+    name: joi.string().required()
         .messages({
             'any.required': 'Test name is a required field',
             'string.base': 'Given test name is not in a valid format'

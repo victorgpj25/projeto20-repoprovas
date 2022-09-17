@@ -26,7 +26,7 @@ export async function validateTeacher(teacher: string) {
 }
 
 export async function getTeacherDisciplineId(teacherId: number, disciplineId: number) {
-    const teacherDisciplineData = await teacherDisciplineRepository.findByIds({teacherId, disciplineId})
+    const teacherDisciplineData = await teacherDisciplineRepository.findByIds(teacherId, disciplineId)
     if (!teacherDisciplineData) throw {code: 'teacher_discipline_not_registered', message: 'Teacher discpline searched is not registered'}
 
     return teacherDisciplineData.id
