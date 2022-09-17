@@ -11,9 +11,14 @@ export async function postTest(req: Request, res: Response) {
     res.sendStatus(201)
 }
 
-
 export async function getTestsByDiscipline(req: Request, res: Response) {
     const tests = await testRepository.findByDiscipline()
+
+    res.status(200).send(tests)
+}
+
+export async function getTestsByTeacher(req: Request, res: Response) {
+    const tests = await testRepository.findByTeacher()
 
     res.status(200).send(tests)
 }
