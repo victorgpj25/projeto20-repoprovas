@@ -16,6 +16,7 @@ const signUpSchema = joi.object({
     ),
     confirmPassword: joi.any().equal(joi.ref('password')).required()
     .messages({
+        'any.required': 'Confirm password is a required field',
         'any.only': 'Confirm password does not match'
     }
     )
