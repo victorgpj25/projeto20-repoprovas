@@ -9,3 +9,11 @@ export async function postTest(req: Request, res: Response) {
 
     res.sendStatus(201)
 }
+
+
+export async function getTestsByDiscipline(req: Request, res: Response) {
+    const disciplineId = Number(req.params.id)
+    const tests = await testService.getTestsByDisciplineId(disciplineId)
+
+    res.status(200).send(tests)
+}
