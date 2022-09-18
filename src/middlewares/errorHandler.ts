@@ -25,6 +25,9 @@ export default function errorHandler(error: any, req: Request, res: Response, ne
     if (error.code === 'email_conflict') {
         return res.status(409).send({ErrorMessage: error.message})
     }
+    if (error.code === 'test_already_registered') {
+        return res.status(409).send({ErrorMessage: error.message})
+    }
 
     res.sendStatus(500)
 }

@@ -1,3 +1,4 @@
+import * as testRepository from '../repositories/testRepository'
 import * as categoryRepository from '../repositories/categoryRepository'
 import * as disciplineRepository from '../repositories/disciplineRepository'
 import * as teacherRepository from '../repositories/teacherRepository'
@@ -30,4 +31,10 @@ export async function getTeacherDisciplineId(teacherId: number, disciplineId: nu
     if (!teacherDisciplineData) throw {code: 'teacher_discipline_not_registered', message: 'Teacher discpline searched is not registered'}
 
     return teacherDisciplineData.id
+}
+
+
+export async function verifyTestConflict(pdfUrl: string) {
+    const testAlreadyRegistered = await testRepository.findByUrl(pdfUrl)
+    if (testAlreadyRegistered) throw {code: 'test_already_registered', message: 'Test is already registered'}
 }

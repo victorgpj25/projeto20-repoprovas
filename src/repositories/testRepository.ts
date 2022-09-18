@@ -9,6 +9,15 @@ export async function insert(testInsertData: testTypes.ItestInsertData) {
     })
 }
 
+export async function findByUrl(pdfUrl: string) {
+    const test = await prisma.tests.findFirst({
+        where: {
+            pdfUrl: pdfUrl
+        }
+    })
+    return test
+}
+
 export async function findByDiscipline() {
     const tests = await prisma.terms.findMany({
         select: {
